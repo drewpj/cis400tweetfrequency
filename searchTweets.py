@@ -8,7 +8,7 @@ import time
 twitter_api = oauth_login()#twitter api for grabbing data
 tweetsIngraham = {}
 tweetsIngrahamList = []
-ingrahamSearch = open('ingrahamSearch.json','w')
+ingrahamSearch = open('ingrahamSearch328.json','w')
 q = 'IngrahamAngle'
 
 
@@ -24,7 +24,7 @@ Parameters:
 getMaxID parses the maxID from the appropriate string in the search return metadata
 maxid will then be used to call the next batch of tweets. More info on maxid is Availableon the search api documentation
 '''
-response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='recent',max_results=10, until = '2018-03-29')
+response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='recent',count=100, until = '2018-03-29')
 next_results = response['search_metadata']['next_results']
 getMaxID = dict([ kv.split('=') for kv in next_results[1:].split("&") ])
 maxid = getMaxID['max_id']
@@ -39,24 +39,28 @@ Parameters in response:
     -max_results is 100 (testing, but really it should be kept like this)
     -max_id field is at the end of the call, allowing each call of the function to retrieve older and older tweets
 
-time.sleep(1): Can only call the search api 180 times in 15 minutes, so ~5 seconds. Right now set to one because testing, but should probably be set to 10self.
+time.sleep(5): Can only call the search api 180 times in 15 minutes, so ~5 seconds. Right now set to one because testing, but should probably be set to 10self.
                 Or, we can edit the make-twitter_request function to handle this error for us
 
 The try:except: is there because this is still unstable. I've encountered errors that I haven't yet figured outself.
     -One big error is when next_results eventually is null, (there are no older tweets to retrieve)
 '''
-for i in range(1,10):
+empty = 0
+for i in range(1,1000):
     #print(i) #testing code
     try:
-        response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='mixed',max_results=100,until = '2018-03-29',max_id=maxid)
+        response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='mixed',count=100,until = '2018-03-29',max_id=maxid)
         next_results = response['search_metadata']['next_results']
         getMaxID  = dict([ kv.split('=') for kv in next_results[1:].split("&") ])
         maxid = getMaxID['max_id']
-        time.sleep(1)
+        time.sleep(5)
     except:
+        print('error')
         json.dump(tweetsIngraham,ingrahamSearch)
     print(maxid)
     for tweet in response['statuses']:
+        #print(tweet['created_at'])
         tweetsIngraham[tweet['id']] = tweet
-    tweetsIngrahamList += str(tweetsIngraham)
+    #tweetsIngrahamList += str(tweetsIngraham)
+ingrahamSearch.seek(0)
 json.dump(tweetsIngraham,ingrahamSearch) #dumps list/dictionary to file. It can read in as a dictionary that works but I have no idea why. see test.py

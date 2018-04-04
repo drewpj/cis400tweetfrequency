@@ -2,7 +2,9 @@ import json
 #import pprint #only for fun printing
 from TwitterModule import *
 
-names = ['@IngrahamAngle','@davidhogg111','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
+#names = ['@IngrahamAngle','@davidhogg111','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
+names = ['@sleepnumber']
+#names = ['@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
 for q in names:
     name = q[1:]
     nameFile = name + '328.json'
@@ -24,7 +26,10 @@ for q in names:
 
     #length of the dictionary
     print(len(largeFile))
-
+    keys = largeFile.keys()
+    print(keys)
+    print(keys[666])
+    print(largeFile[keys[1]]['created_at'])
     #the keys (twitter IDs) in the dictionary
     #print(largeFile.keys())
 

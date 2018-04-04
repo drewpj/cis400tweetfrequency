@@ -9,7 +9,7 @@ from datetime import datetime
 twitter_api = oauth_login()#twitter api for grabbing data
 
 errorLog = open('errorLog.txt','w')
-names = ['@IngrahamAngle','@davidhogg111','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair']
+names = ['@IngrahamAngle','@davidhogg111','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
 for q in names:
     try:
         tweetsDicitonary = {}

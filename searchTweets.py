@@ -46,7 +46,7 @@ The try:except: is there because this is still unstable. I've encountered errors
     -One big error is when next_results eventually is null, (there are no older tweets to retrieve)
 '''
 empty = 0
-for i in range(1,1000):
+for i in range(1,150):
     #print(i) #testing code
     try:
         response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='mixed',count=100,until = '2018-03-29',max_id=maxid)
@@ -62,5 +62,5 @@ for i in range(1,1000):
         #print(tweet['created_at'])
         tweetsIngraham[tweet['id']] = tweet
     #tweetsIngrahamList += str(tweetsIngraham)
-ingrahamSearch.seek(0)
-json.dump(tweetsIngraham,ingrahamSearch) #dumps list/dictionary to file. It can read in as a dictionary that works but I have no idea why. see test.py
+    ingrahamSearch.seek(0)
+    json.dump(tweetsIngraham,ingrahamSearch) #dumps list/dictionary to file. It can read in as a dictionary that works but I have no idea why. see test.py

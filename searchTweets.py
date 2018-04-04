@@ -66,7 +66,7 @@ for q in names:
                     break
                 getMaxID  = dict([ kv.split('=') for kv in next_results[1:].split("&") ])
                 maxid = getMaxID['max_id']
-                print(maxid)
+               # print(maxid)
                 time.sleep(5)
             except:
                 line = "\nretrieval error at " + str(datetime.now()) + " while processing " + q + ' at loop number ' + str(i)

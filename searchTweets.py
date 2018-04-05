@@ -44,7 +44,7 @@ for day in dates:
             getMaxID parses the maxID from the appropriate string in the search return metadata
             maxid will then be used to call the next batch of tweets. More info on maxid is Availableon the search api documentation
             '''
-            print(q) #prints twitter user being processed
+            print(q + 'at ' + str(datetime.now())) #prints twitter user being processed
 
             response = make_twitter_request(twitter_api.search.tweets,q=q,result_type='recent',count=5, until=until)
             try:

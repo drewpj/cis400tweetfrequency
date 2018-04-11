@@ -8,12 +8,12 @@ from datetime import datetime
 #Set up api and global variables
 twitter_api = oauth_login()#twitter api for grabbing data
 #dates = [330,331,401,402,403]
-dates = [330,331,401,402]
+dates = [401,402,403,404,405,406,407]
 
 for day in dates:
     print(day)
-    names = ['@IngrahamAngle','@davidhogg111','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
-    errorLogName = 'errorLog' + str(day) + '.txt'
+    names = ['@itsnotdrew','@davidhogg111','@IngrahamAngle','@sleepnumber','@ATT','@Allstate','@esurance','@Bayer','@RocketMortgage','@LibertyMutual','@Arbys','@TripAdvisor','@Nestle','@hulu','@Wayfair','@FoxNews','#BoycottIngramAdverts','#boycottLauraIngraham','#FireIngraham','#FireLauraIngraham']
+    errorLogName = 'errorLog' + str(day) + '_4' +  '.txt'
     errorLog = open(errorLogName,'w')
     for q in names:
         try:
@@ -29,7 +29,7 @@ for day in dates:
             until = '2018-0' + dateMonth + '-' + dateDayPlusOne
             tweetsDicitonary = {}
             name = q[1:]
-            nameFile = name + dateStr + '.json'
+            nameFile = name + dateStr +'_4'+  '.json'
             file = open(nameFile,'w')
 
             '''

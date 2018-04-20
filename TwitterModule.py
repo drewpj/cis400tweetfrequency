@@ -151,7 +151,7 @@ def crawl_followers(twitter_api, screen_name, limit=1000000, depth=2):
             next_queue += follower_ids
 
 #get followersIDs/getFriendsIDs
-def make_twitter_request(twitter_api_func, max_errors=10, *args, **kw):
+def make_twitter_request(twitter_api_func, max_errors=20, *args, **kw):
 
     # A nested helper function that handles common HTTPErrors. Return an updated
     # value for wait_period if the problem is a 500 level error. Block until the
@@ -231,8 +231,9 @@ def harvest_user_timeline(twitter_api, screen_name=None, user_id=None, max_resul
     kw = {  # Keyword args for the Twitter API call
         'count': 200,
         'trim_user': 'true',
-        'include_rts' : 'true',
-        'since_id' : 1
+        'include_rts' : 'false',
+        'since_id' : 1,
+        'exclude_replies': 'false',
         }
 
     if screen_name:
@@ -250,7 +251,7 @@ def harvest_user_timeline(twitter_api, screen_name=None, user_id=None, max_resul
 
     results += tweets
 
-    print >> sys.stderr, 'Fetched %i tweets' % len(tweets)
+    #print >> sys.stderr, 'Fetched %i tweets' % len(tweets)
 
     page_num = 1
 
@@ -279,11 +280,11 @@ def harvest_user_timeline(twitter_api, screen_name=None, user_id=None, max_resul
         tweets = make_twitter_request(twitter_api.statuses.user_timeline, **kw)
         results += tweets
 
-        print >> sys.stderr, 'Fetched %i tweets' % (len(tweets),)
+        #print >> sys.stderr, 'Fetched %i tweets' % (len(tweets),)
 
         page_num += 1
 
-    print >> sys.stderr, 'Done fetching tweets'
+    #print >> sys.stderr, 'Done fetching tweets'
 
     return results[:max_results]
 
@@ -334,3 +335,40 @@ def twitter_search(twitter_api, q, max_results=200, **kw):
     return statuses
 
 # Sample usage
+def monthNum(monthStr):
+    if (monthStr == 'Jan'):
+        return 1
+    elif (monthStr == 'Feb'):
+        return 2
+    elif (monthStr == 'Mar'):
+        return 3
+    elif (monthStr == 'Apr'):
+        return 4
+    elif (monthStr == 'May'):
+        return 5
+    elif (monthStr == 'Jun'):
+        return 6
+    elif (monthStr == 'Jul'):
+        return 7
+    elif (monthStr == 'Aug'):
+        return 8
+    elif (monthStr == 'Sep'):
+        return 9
+    elif (monthStr == 'Oct'):
+        return 10
+    elif (monthStr == 'Nov'):
+        return 11
+    elif (monthStr == 'Dec'):
+        return 12
+    else:
+        return -1
+def tweetInRange(tweet):
+    month = monthNum(tweet['created_at'][4:7])
+    day = int(tweet['created_at'][8:10])
+    year = int(tweet['created_at'][-4:])
+    if (year == 2018 and month > 2 ):
+        if (month == 4):
+            return True
+        elif (day > 25):
+            return True
+    return False

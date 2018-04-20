@@ -5,10 +5,10 @@ class AnalyzeTimeline:
     def __init__(self,):
         self.run()
     def run(self):
-        names = ['Nutrish']
-        #names = ['nutrish','davidhogg111','IngrahamAngle','sleepnumber','ATT','Allstate','esurance','Bayer','RocketMortgage','LibertyMutual','Arbys','TripAdvisor','Nestle','hulu','Wayfair','FoxNews']
+        #names = ['Nutrish']
+        names = ['nutrish','davidhogg111','IngrahamAngle','sleepnumber','ATT','Allstate','esurance','Bayer','RocketMortgage','LibertyMutual','Arbys','TripAdvisor','Nestle','hulu','Wayfair','FoxNews']
         for name in names:
-
+            print("\n" + name)
             tweets = harvest_user_timeline(twitter_api, screen_name=name, max_results=800)
 
             lauraTweets = {}
@@ -20,9 +20,11 @@ class AnalyzeTimeline:
                         lauraTweets[tweet['id']] = tweet
                     else:
                         nonLauraTweets[tweet['id']] = tweet
-            self.printAndWrite(lauraTweets,nonLauraTweets)
+            #self.printAndWrite(lauraTweets,nonLauraTweets)
             lauraFav = self.getAvFavs(lauraTweets)
-            nonLauraFavs = self.getAvFavs(nonLauraTweets)
+            nonLauraFav = self.getAvFavs(nonLauraTweets)
+            print("Average favorites for tweets mentioning 'Ingraham': " + str(lauraFav))
+            print("Average favorites for tweets not mentioning 'Ingraham': " + str(nonLauraFav))
 
 
     def checkDate(self,created):
@@ -54,6 +56,15 @@ class AnalyzeTimeline:
         print len(lt)
         for key in lt.keys():
             print lt[key]['favorite_count']
+    def getAvFavs(self,tweets):
+        avg = 0.0;
+        for key in tweets.keys():
+            avg = avg + int(tweets[key]['favorite_count'])
+        if (len(tweets) == 0):
+            return 0
+        else:
+            avg = float(avg) / float(len(tweets))
+            return avg
 
 if __name__ == "__main__":
   #a = sys.argv

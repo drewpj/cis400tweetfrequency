@@ -9,15 +9,20 @@ twitter_api = oauth_login()#twitter api for grabbing data
 
 names = ['nutrish','davidhogg111','IngrahamAngle','sleepnumber','ATT','Allstate','esurance','Bayer','RocketMortgage','LibertyMutual','Arbys','TripAdvisor','Nestle','hulu','Wayfair','FoxNews']
 
-for name in names:
+for name in names: #run for each user
     print("\n" + name)
     nameFile = name + '_timeline' + '.json'
     file = open(nameFile,'w')
     fileCSV = open(name + 'TimelineData.csv','w')
-
     writer = csv.writer(fileCSV, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    results = []
+    listDateTimes = []
+    listRT = []
+    listFav = []
+    running = True
+
     '''
-    their codes
+    api call key words
     '''
     kw = {  # Keyword args for the Twitter API call
         'count': 200,
@@ -28,27 +33,22 @@ for name in names:
         'screen_name': name
         }
 
-    results = []
-    listDateTimes = []
-    listRT = []
-    listFav = []
-    tweets = make_twitter_request(twitter_api.statuses.user_timeline, **kw)
+
+    tweets = make_twitter_request(twitter_api.statuses.user_timeline, **kw)#the api call
 
     if tweets is None: # 401 (Not Authorized) - Need to bail out on loop entry
         tweets = []
-    for tweet in tweets:
+    for tweet in tweets:#for each tweet in the list of tweets
         if (tweetInRange(tweet)):
             datetime = parser.parse(tweet['created_at'])
             writer.writerow([datetime.strftime("%Y-%m-%d %H:%M:%S"),tweet['retweet_count'],tweet['favorite_count']])
             listDateTimes.append(datetime.strftime("%Y-%m-%d %H:%M:%S"))
             listRT.append(tweet['retweet_count'])
             listFav.append(tweet['favorite_count'])
-            #results[tweet['id']] = [tweet['id'],tweet['created_at'],tweet['retweet_count'],tweet['favorite_count']]
             results += [datetime.strftime("%Y-%m-%d %H:%M:%S"),tweet['retweet_count'],tweet['favorite_count']]
-    running = True
 
-    while(running):
 
+    while(running):#runs this loop until the tweets get too old
         kw['max_id'] = min([ tweet['id'] for tweet in tweets]) - 1
 
         tweets = make_twitter_request(twitter_api.statuses.user_timeline, **kw)
@@ -56,19 +56,18 @@ for name in names:
             tweets = []
         for tweet in tweets:
             if (tweetInRange(tweet)):
-                datetime = parser.parse(tweet['created_at'])
+                datetime = parser.parse(tweet['created_at'])#parses datetime string
                 writer.writerow([datetime.strftime("%Y-%m-%d %H:%M:%S"),tweet['retweet_count'],tweet['favorite_count']])
                 listDateTimes.append(datetime.strftime("%Y-%m-%d %H:%M:%S"))
                 listRT.append(tweet['retweet_count'])
                 listFav.append(tweet['favorite_count'])
-                #results[tweet['id']] = [tweet['id'],tweet['created_at'],tweet['retweet_count'],tweet['favorite_count']]
-                results += [datetime.strftime("%Y-%m-%d %H:%M:%S"),tweet['retweet_count'],tweet['favorite_count']]
+
+                results += [datetime.strftime("%Y-%m-%d %H:%M:%S"),tweet['retweet_count'],tweet['favorite_count']]#adds to results list
 
         if (len(tweets) == 0):
             print("\n\nbroke the loop\n")
             break
 
-        #completely unecessary
         month = monthNum(tweets[len(tweets)-1]['created_at'][4:7])
         day = int(tweets[len(tweets)-1]['created_at'][8:10])
         year = int(tweets[len(tweets)-1]['created_at'][-4:])
@@ -85,8 +84,9 @@ for name in names:
     print("ran files")
     json.dump(results,file)
     file.close()
-
-    #plotting the graphs
+    '''
+    plotting the graphs using matplotlib
+    '''
     date = dates.datestr2num(listDateTimes)
 
     plt.subplot(2,1,1)

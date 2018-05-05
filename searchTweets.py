@@ -42,7 +42,7 @@ for day in dates:
                         (so all tweets from this call are from 3/28/2018)
 
             getMaxID parses the maxID from the appropriate string in the search return metadata
-            maxid will then be used to call the next batch of tweets. More info on maxid is Availableon the search api documentation
+            maxid will then be used to call the next batch of tweets. More info on maxid is Available on the search api documentation
             '''
             print(q + 'at ' + str(datetime.now())) #prints twitter user being processed
 
@@ -58,8 +58,6 @@ for day in dates:
                 errorLog.write(line)
 
             '''
-            Currently only running 10 times for testing. Figuring out how often to run and how to stop it from running will be a challenge
-
             Parameters in response:
                 most are the same
                 -result_type is mixed (testing)
@@ -69,8 +67,6 @@ for day in dates:
             time.sleep(5): Can only call the search api 180 times in 15 minutes, so ~5 seconds. Right now set to one because testing, but should probably be set to 10self.
                             Or, we can edit the make-twitter_request function to handle this error for us
 
-            The try:except: is there because this is still unstable. I've encountered errors that I haven't yet figured outself.
-                -One big error is when next_results eventually is null, (there are no older tweets to retrieve)
             '''
             for i in range(1,101): #top possible tweets 10,000
                 #print(i) #testing code
@@ -86,18 +82,14 @@ for day in dates:
                 except:
                     line = "\nretrieval error at " + str(datetime.now()) + " while processing " + q + ' at loop number ' + str(i)
                     errorLog.write(line)
-                    #json.dump(tweetsDicitonary,file)
                     break
-                #print(maxid)
-                for tweet in response['statuses']:
+                for tweet in response['statuses']:#add each tweet to a dictionary
                     try:
                         tweetsDicitonary[tweet['id']] = tweet
                     except:
                         line = "\ndicitonary error at " + str(datetime.now()) + " while processing " + str(tweet['id'])
                         errorLog.write(line)
-                #tweetsIngrahamList += str(tweetsIngraham)
                 file.seek(0)
-                #json.dump(tweetsDicitonary,file) #dumps list/dictionary to file. It can read in as a dictionary that works but I have no idea why. see test.py
             file.seek(0)
             json.dump(tweetsDicitonary,file)
             file.close()

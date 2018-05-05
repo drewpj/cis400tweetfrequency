@@ -4,8 +4,9 @@ By Morgan Blume, Drew Jacobson, Megi Shehi
 A project for CIS400 "Social Media and Data Mining" at Syracuse University.
 
 Links:
-github: https://github.com/drewpj/cis400tweetfrequency
-Google drive (must be logged into with g.syr.edu account): https://drive.google.com/drive/folders/1URY3xKOQAFmOubG5GvAVKLi8MRhaWc-O?usp=sharing
+github (contains all of our code): https://github.com/drewpj/cis400tweetfrequency
+
+Google drive (contains all of our graphs and you must be logged into with g.syr.edu account): https://drive.google.com/drive/folders/1URY3xKOQAFmOubG5GvAVKLi8MRhaWc-O?usp=sharing
 
 
 How to use:

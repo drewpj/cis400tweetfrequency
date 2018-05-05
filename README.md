@@ -3,13 +3,24 @@ By Morgan Blume, Drew Jacobson, Megi Shehi
 
 A project for CIS400 "Social Media and Data Mining" at Syracuse University.
 
-Links:
+## References:
+*Mining the Social Web, 2nd Edition*
+By Matthew Russell
+Publisher: O'Reilly Media
+Release Date: October 2013
+
+
+## Links:
 github (contains all of our code): https://github.com/drewpj/cis400tweetfrequency
 
 Google drive (contains all of our graphs and you must be logged into with g.syr.edu account): https://drive.google.com/drive/folders/1URY3xKOQAFmOubG5GvAVKLi8MRhaWc-O?usp=sharing
 
+## How to install:
+Install Python 2.7x. 
+Install the following Python2.7x modules: twitter, matplotlib, textblob
+The code should be able to run with just these dependencies (although Twitter won't return an valuable data due to the Search API only returning the last 7 days of tweets.)
 
-How to use:
+## How to use:
 In the current iteration of this code, it is difficult/impossible to replicate the results we have gotten for our report. This is because Twitter's Search API only allows for ~7 days of return results. Because this controversy happened a month and a half ago, using the same Search API won't work. Additionally, because the users who we search for our hardcoded into our program, it would be difficult (albeit not impossible) to change who you are searching for. 
 This all being said, I will lay out the programs we ran to gather our data.
 
@@ -27,4 +38,4 @@ analyzeTimelines.py: Creates a graph of the engagement (likes and favorites) of 
 
 timelineData.py: Displays example tweets from users that mention “ingraham.” This program was used for debugging purposes. It requires no arguments.
 
-getTopTweets.py: Displays up to 10 positive, neutral, and negative tweets from a specified user on a specified day. This program was used for debugging purposes. To run the program, you must enter (as an argument) the user's name and the date you want to search for. For example, if you want to search for Wayfair on March 29th, type "python getTopTweets.py Wayfair329"
+getTopTweets.py: Displays up to 10 positive, neutral, and negative tweets from a specified user on a specified day. This program was used for debugging purposes. To run the program, you must enter (as an argument) the user's name and the date you want to search for. For example, if you want to search for Wayfair on March 29th, type `python getTopTweets.py Wayfair329`

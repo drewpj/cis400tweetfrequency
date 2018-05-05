@@ -1,4 +1,4 @@
-# cis400tweetfrequency
+# Quantifying Twitter Outrage:The Impact of Twitter Social Media Campaigns in the Decision to Drop an Advertsing Client
 By Morgan Blume, Drew Jacobson, Megi Shehi
 
 A project for CIS400 "Social Media and Data Mining" at Syracuse University.
